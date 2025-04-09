@@ -1,0 +1,84 @@
+drop database if exists insurance_management;
+create database insurance_management;
+use insurance_management;
+
+drop table if exists payment;
+drop table if exists claim;
+drop table if exists client;
+drop table if exists user;
+
+
+create table user (user_id int primary key,
+user_name varchar(50) not null,password varchar(100) not null,role varchar(30) not null);
+
+
+create table client (client_id int primary key,client_name varchar(100) not null,
+contact_info varchar(100),policy varchar(100));
+
+
+create table claim (claim_id int primary key,claim_number varchar(50) not null,date_filed date,
+claim_amount decimal(10,2),status varchar(50),policy varchar(100),client_id int,
+foreign key (client_id) references client(client_id));
+
+
+create table payment (payment_id int primary key,payment_date date,
+payment_amount decimal(10,2),client_id int,
+foreign key (client_id) references client(client_id));
+
+
+insert into user (user_id, user_name, password, role) values
+(1, 'arthi', 'pass123', 'admin'),
+(2, 'babu', 'secure456', 'user'),
+(3, 'charlie', 'key789', 'user'),
+(4, 'deepthi', 'lock321', 'manager'),
+(5, 'elis', 'safety888', 'admin'),
+(6, 'frank', 'gate777', 'user'),
+(7, 'geetha', 'shield999', 'manager'),
+(8, 'hari', 'access111', 'user'),
+(9, 'iniya', 'vault000', 'user'),
+(10, 'john', 'barrier333', 'admin');
+
+
+insert into client (client_id, client_name, contact_info, policy) values
+(101, 'acme corp', 'acme@example.com', 'life'),
+(102, 'global tech', 'global@example.com', 'health'),
+(103, 'oceanic', 'ocean@example.com', 'auto'),
+(104, 'skyline ltd', 'skyline@example.com', 'property'),
+(105, 'nova systems', 'nova@example.com', 'travel'),
+(106, 'zenith co', 'zenith@example.com', 'life'),
+(107, 'alpha inc', 'alpha@example.com', 'auto'),
+(108, 'beta corp', 'beta@example.com', 'health'),
+(109, 'gamma group', 'gamma@example.com', 'property'),
+(110, 'delta solutions', 'delta@example.com', 'travel');
+
+
+insert into claim (claim_id, claim_number, date_filed, claim_amount, status, policy, client_id) values
+(201, 'CLM001', '2024-01-15', 5000.00, 'pending', 'life', 101),
+(202, 'CLM002', '2024-02-10', 1200.50, 'approved', 'health', 102),
+(203, 'CLM003', '2024-03-05', 850.75, 'rejected', 'auto', 103),
+(204, 'CLM004', '2024-01-20', 10000.00, 'approved', 'property', 104),
+(205, 'CLM005', '2024-02-28', 2200.00, 'pending', 'travel', 105),
+(206, 'CLM006', '2024-03-10', 3100.00, 'approved', 'life', 106),
+(207, 'CLM007', '2024-03-18', 2750.00, 'pending', 'auto', 107),
+(208, 'CLM008', '2024-04-01', 4600.00, 'approved', 'health', 108),
+(209, 'CLM009', '2024-04-05', 950.00, 'rejected', 'property', 109),
+(210, 'CLM010', '2024-04-08', 1800.00, 'pending', 'travel', 110);
+
+
+insert into payment (payment_id, payment_date, payment_amount, client_id) values
+(301, '2024-01-25', 4800.00, 101),
+(302, '2024-02-15', 1150.00, 102),
+(303, '2024-03-10', 800.00, 103),
+(304, '2024-01-30', 9500.00, 104),
+(305, '2024-03-05', 2100.00, 105),
+(306, '2024-03-15', 3050.00, 106),
+(307, '2024-03-25', 2600.00, 107),
+(308, '2024-04-02', 4400.00, 108),
+(309, '2024-04-06', 900.00, 109),
+(310, '2024-04-09', 1750.00, 110);
+
+
+select * from user;
+select * from client;
+select * from claim;
+select * from payment;
